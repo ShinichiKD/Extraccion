@@ -38,32 +38,35 @@
                 FileWriter writer = new FileWriter(file, true);
                 int c = 0;
                 String line = "";
-                for (int i = 0; i < N+1; i++) {
-                    String word = words[rand.nextInt(words.length)];
-                    int anio = 1980+i;
+                for (String ciudad : words) {
+                    for (int i = 0; i < N+1; i++) {
                     
-                    
-                    for(int j=1; j<13;j++){
+                        int anio = 1980+i;
                         
-                        for(int k=1;k<31;k++){
-                            int temp1 = rand.nextInt(45);
-                            int temp2 = rand.nextInt(45);
-                            int mayor = 0;
-                            int menor = 0;
-                            if(temp1>=temp2){
-                                mayor=temp1;
-                                menor=temp2;
-                            }else{
-                                mayor=temp2;
-                                menor=temp1;
-                            }
+                        
+                        for(int j=1; j<13;j++){
                             
-                            writer.write(word+" "+anio+"-"+j+"-"+k+" "+menor+" "+mayor+"\n");
+                            for(int k=1;k<31;k++){
+                                int temp1 = rand.nextInt(45);
+                                int temp2 = rand.nextInt(45);
+                                int mayor = 0;
+                                int menor = 0;
+                                if(temp1>=temp2){
+                                    mayor=temp1;
+                                    menor=temp2;
+                                }else{
+                                    mayor=temp2;
+                                    menor=temp1;
+                                }
+                                
+                                writer.write(ciudad+" "+anio+"-"+j+"-"+k+" "+menor+" "+mayor+"\n");
+                            }
                         }
+                        
+    
                     }
-                    
-
                 }
+                
                 writer.close();
             } catch (Exception ex) {
                 System.out.println("Error:" + ex.getMessage());
