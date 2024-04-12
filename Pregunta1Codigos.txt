@@ -1,0 +1,23 @@
+export PATH=${JAVA_HOME}/bin:${PATH}
+export HADOOP_CLASSPATH=${JAVA_HOME}/lib/tools.jar
+mkdir Pregunta1
+cd Pregunta1
+wget http://renzoangles.net/docencia/egdm/WordCount.java
+wget http://renzoangles.net/docencia/egdm/Wordsgen.java
+hadoop com.sun.tools.javac.Main WordCount.java
+jar cf wc.jar WordCount*.class
+javac Wordsgen.java
+java Wordsgen 1000
+mv words.txt words1.txt
+java Wordsgen 1000
+mv words.txt words2.txt
+java Wordsgen 1000
+mv words.txt words3.txt
+hdfs dfs -mkdir /user/wc
+hdfs dfs -mkdir /user/wc/inputPregunta1
+hdfs dfs -put words1.txt /user/wc/inputPregunta1
+hdfs dfs -put words2.txt /user/wc/inputPregunta1
+hdfs dfs -put words3.txt /user/wc/inputPregunta1
+hadoop jar wc.jar WordCount /user/wc/inputPregunta1 /user/wc/outputPregunta1
+hdfs dfs -get /user/wc/outputPregunta1/part-r-00000 salida.txt
+cat salida.txt
