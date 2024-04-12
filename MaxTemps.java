@@ -16,7 +16,7 @@ public class MaxTemps {
   public static class TempMapper
        extends Mapper<Object, Text, Text, IntWritable>{
 
-    private Text city = new Text();
+    private Text ciudad = new Text();
     private IntWritable tempMax = new IntWritable();
 
     public void map(Object key, Text value, Context context
