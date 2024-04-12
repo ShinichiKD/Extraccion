@@ -1,0 +1,16 @@
+export PATH=${JAVA_HOME}/bin:${PATH}
+export HADOOP_CLASSPATH=${JAVA_HOME}/lib/tools.jar
+mkdir Pregunta5
+cd Pregunta5
+wget raw.githubusercontent.com/ShinichiKD/Extraccion/main/MesesPromTemps.java
+wget raw.githubusercontent.com/ShinichiKD/Extraccion/main/Tempsgen.java
+hadoop com.sun.tools.javac.Main MesesPromTemps.java
+jar cf wc.jar MesesPromTemps*.class
+javac Tempsgen.java
+java Tempsgen 5
+hdfs dfs -mkdir /user/wc
+hdfs dfs -mkdir /user/wc/inputPregunta5
+hdfs dfs -put temps.txt /user/wc/inputPregunta5
+hadoop jar wc.jar MesesPromTemps /user/wc/inputPregunta5 /user/wc/outputPregunta5
+hdfs dfs -get /user/wc/outputPregunta5/part-r-00000 salida.txt
+cat salida.txt
